@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
-
 import 'package:expense_tracker/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
@@ -50,6 +48,8 @@ void _removedExpense(Expense expense){
         _registerdExpenses.remove(expense);
       });
 
+      ScaffoldMessenger.of(context).clearSnackBars();
+
       ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(duration: const Duration(seconds: 3),content: const Text('Expense Deleted.'),
          action: SnackBarAction(label: 'Undo', onPressed: (){
@@ -62,7 +62,7 @@ void _removedExpense(Expense expense){
   @override
   Widget build(BuildContext context) {
 
-    Widget mainContent  = Center(child: Text('No Expenses found. Start adding some!'));
+    Widget mainContent  = const Center(child:  Text('No Expenses found. Start adding some!'));
 
     if (_registerdExpenses.isNotEmpty){
       mainContent =            ExpensesList(expenses: _registerdExpenses,
